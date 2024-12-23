@@ -26,10 +26,12 @@ const WeatherCard = ({ data }: { data: any }) => {
     }
   };
 
+  const fahrenheitTemp = (((temp - 273.15) * 9) / 5 + 32).toFixed(2); // Convert temp to Fahrenheit and fix to 2 decimal places
+
   return (
-    <div className="bg-gradient-to-b from-blue-500 to-yellow-300 p-6 rounded-lg shadow-md flex flex-col items-center">
+    <div className="bg-gradient-to-b from-blue-500 to-yellow-300 p-6 rounded-lg shadow-md flex flex-col items-center animate-pulse">
       <h1 className="text-3xl font-bold">{city}</h1>
-      <p className="text-xl">{((temp - 273.15) * 9) / 5 + 32}°F</p>
+      <p className="text-xl">{fahrenheitTemp}°F</p>
       <p className="text-lg">Humidity: {humidity}%</p>
       <p className="text-lg italic">{description}</p>
       <p className="text-6xl">{getWeatherEmoji(id)}</p>

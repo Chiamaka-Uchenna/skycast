@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { WeatherCard } from "./components/WeatherCard";
 import { ForecastCard } from "./components/ForecastCard";
 
-// Access API Key from environment variables (updated to NEXT_PUBLIC_ prefix for Next.js)
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 const Home = () => {
@@ -15,76 +14,101 @@ const Home = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isWeatherFetched, setIsWeatherFetched] = useState(false);
 
-  // Fetch current weather data
   const fetchWeatherData = async (city: string) => {
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
       );
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
+      if (!res.ok) throw new Error(data.message || "Invalid city name.");
       setWeatherData(data);
       setError(null);
-    } catch (error) {
-      setError("Could not fetch weather data");
+    } catch (err) {
+      setWeatherData(null);
+      handleFetchError(err, "weather");
     }
   };
 
-  // Fetch forecast data
   const fetchForecastData = async (city: string) => {
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`
       );
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
+      if (!res.ok) throw new Error(data.message || "Invalid city name.");
       setForecastData(data);
       setError(null);
-    } catch (error) {
-      setError("Could not fetch forecast data");
+    } catch (err) {
+      setForecastData(null);
+      handleFetchError(err, "forecast");
     }
   };
 
-  // Handle form submission
+  const handleFetchError = (err: unknown, type: string) => {
+    if (err instanceof Error) {
+      const errorMessage =
+        err.message === "city not found"
+          ? "City not found. Please enter a valid city."
+          : `Could not fetch ${type} data. Try again.`;
+      setError(errorMessage);
+    } else {
+      setError("An unexpected error occurred.");
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (city.trim()) {
-      fetchWeatherData(city);
-      fetchForecastData(city);
-      setIsWeatherFetched(true);
+
+    if (!city.trim()) {
+      setError("Please enter a city name.");
+      return;
     }
+
+    setError(null);
+    fetchWeatherData(city);
+    fetchForecastData(city);
+    setIsWeatherFetched(true);
   };
 
   return (
-    <div className={isDarkMode ? "bg-gray-800 text-white" : "bg-gray-50"}>
-      <div className="container mx-auto p-4">
-        <header className="flex justify-between items-center mb-6">
+    <div
+      className={
+        isDarkMode
+          ? "bg-gray-800 text-white min-h-screen flex flex-col"
+          : "bg-gray-50 min-h-screen flex flex-col"
+      }
+    >
+      <div className="container mx-auto p-4 flex-grow">
+        <header className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <h1
-            className={`text-4xl font-bold ${
-              isDarkMode ? "text-white" : "text-black"
+            className={`text-3xl sm:text-4xl font-bold ${
+              isDarkMode ? "text-white" : "text-gray-800"
             }`}
           >
             SkyCast
           </h1>
           <button
-            className="p-2 bg-gray-300 rounded-full"
+            className="mt-4 sm:mt-0 p-2 bg-gray-300 rounded-full"
             onClick={() => setIsDarkMode(!isDarkMode)}
           >
             {isDarkMode ? "🌙" : "🌞"}
           </button>
         </header>
 
-        <form className="flex mb-6" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col sm:flex-row items-center gap-4 mb-6"
+          onSubmit={handleSubmit}
+        >
           <input
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="p-3 w-64 text-lg text-black border rounded-l-lg"
+            className="p-3 w-full sm:w-64 text-lg text-black border rounded-lg sm:rounded-l-lg"
             placeholder="Enter city"
           />
           <button
             type="submit"
-            className="p-3 bg-green-500 text-white rounded-r-lg"
+            className="p-3 bg-green-500 text-white rounded-lg sm:rounded-r-lg"
           >
             Get Weather
           </button>
@@ -93,7 +117,7 @@ const Home = () => {
         {error && <p className="text-xl text-red-600">{error}</p>}
 
         {!isWeatherFetched && (
-          <div className="mb-60">
+          <div className="">
             <div className="text-center text-2xl font-semibold">
               Your one-stop for weather info
             </div>
@@ -108,7 +132,7 @@ const Home = () => {
         )}
       </div>
 
-      <footer className="bg-black text-white p-6 mt-8">
+      <footer className="bg-gray-700 text-white p-6 mt-8">
         <div className="container mx-auto text-center">
           <p className="text-lg">
             &copy; 2024 SkyCast - Your weather companion

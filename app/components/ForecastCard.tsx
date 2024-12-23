@@ -10,6 +10,7 @@ const ForecastCard = ({ data }: { data: any }) => {
           dt_txt,
         } = forecast;
         const date = new Date(dt_txt).toLocaleString();
+        const fahrenheitTemp = (((temp - 273.15) * 9) / 5 + 32).toFixed(2); // Convert temp to Fahrenheit and fix to 2 decimal places
 
         return (
           <div
@@ -17,7 +18,7 @@ const ForecastCard = ({ data }: { data: any }) => {
             className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-center"
           >
             <h2 className="text-xl font-semibold">{date}</h2>
-            <p className="text-lg">{((temp - 273.15) * 9) / 5 + 32}°F</p>
+            <p className="text-lg">{fahrenheitTemp}°F</p>
             <p className="text-md">{description}</p>
           </div>
         );
