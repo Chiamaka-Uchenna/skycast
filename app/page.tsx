@@ -79,7 +79,7 @@ const Home = () => {
       }
     >
       <div className="container mx-auto p-4 flex-grow">
-        <header className="flex flex-col sm:flex-row justify-between items-center mb-6">
+        <header className="flex items-center justify-between mb-6">
           <h1
             className={`text-3xl sm:text-4xl font-bold ${
               isDarkMode ? "text-white" : "text-gray-800"
@@ -88,10 +88,10 @@ const Home = () => {
             SkyCast
           </h1>
           <button
-            className="mt-4 sm:mt-0 p-2 bg-gray-300 rounded-full"
+            className="p-2 bg-gray-300 rounded-full"
             onClick={() => setIsDarkMode(!isDarkMode)}
           >
-            {isDarkMode ? "🌙" : "🌞"}
+            {isDarkMode ? "🌙" : "☀️"}
           </button>
         </header>
 
@@ -117,10 +117,8 @@ const Home = () => {
         {error && <p className="text-xl text-red-600">{error}</p>}
 
         {!isWeatherFetched && (
-          <div className="">
-            <div className="text-center text-2xl font-semibold">
-              Your one-stop for weather info
-            </div>
+          <div className="text-center text-2xl font-semibold">
+            Your one-stop for weather info
           </div>
         )}
 
