@@ -35,6 +35,7 @@ const Home = () => {
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`
       );
       const data = await res.json();
+      console.log(data)
       if (!res.ok) throw new Error(data.message || "Invalid city name.");
       setForecastData(data);
       setError(null);

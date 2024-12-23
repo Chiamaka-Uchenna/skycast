@@ -7,22 +7,22 @@ const WeatherCard = ({ data }: { data: any }) => {
 
   const getWeatherEmoji = (weatherId: number) => {
     switch (true) {
-      case weatherId >= 200 && weatherId < 300:
-        return "⛈️";
-      case weatherId >= 300 && weatherId < 400:
-        return "☔";
-      case weatherId >= 500 && weatherId < 600:
-        return "🌨️";
-      case weatherId >= 600 && weatherId < 700:
-        return "❄️";
-      case weatherId >= 700 && weatherId < 800:
-        return "🌫️";
-      case weatherId === 800:
-        return "☀️";
-      case weatherId >= 801 && weatherId < 810:
-        return "☁️";
+      case weatherId >= 200 && weatherId < 300: // Thunderstorm
+        return "🌩️"; // Thunderstorm emoji
+      case weatherId >= 300 && weatherId < 400: // Drizzle
+        return "☔"; // Drizzle/Light rain emoji
+      case weatherId >= 500 && weatherId < 600: // Rain
+        return "🌧️"; // Rain emoji
+      case weatherId >= 600 && weatherId < 700: // Snow
+        return "❄️"; // Snow emoji
+      case weatherId >= 700 && weatherId < 800: // Atmosphere (mist, fog, smoke)
+        return "🌫️"; // Foggy/Misty emoji
+      case weatherId === 800: // Clear Sky
+        return "🌞"; // Sun emoji
+      case weatherId >= 801 && weatherId < 810: // Clouds
+        return "☁️"; // Cloud emoji
       default:
-        return "?";
+        return "❓"; // Default emoji for unknown weather
     }
   };
 
