@@ -18,7 +18,7 @@ const WeatherCard = ({ data }: { data: any }) => {
       case weatherId >= 700 && weatherId < 800: // Atmosphere (mist, fog, smoke)
         return "🌫️"; // Foggy/Misty emoji
       case weatherId === 800: // Clear Sky
-        return "🌞"; // Sun emoji
+        return "☀️"; // Sun emoji
       case weatherId >= 801 && weatherId < 810: // Clouds
         return "☁️"; // Cloud emoji
       default:
