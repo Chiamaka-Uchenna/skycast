@@ -18,3 +18,28 @@ Enter a city name in the input field.
 Click "Get Weather" to view the current weather and forecast information for the city.
 Switch between dark mode and light mode using the toggle button.
 View weather details including temperature, humidity, description, and relevant weather emojis.
+
+
+#Clone the repository:
+git clone https://github.com/Chiamaka-Uchenna/skycast.git
+
+#Navigate to the project directory:
+cd skycast-weather-app
+
+#Install dependencies:
+npm install 
+
+#Create a .env.local file in the project root and add your OpenWeatherMap API key:
+NEXT_PUBLIC_API_KEY=your_api_key
+
+#Start the development server:
+npm run dev
+Access the application in your browser at http://localhost:3000.
+
+Dependencies
+
+Next.js: React framework for building user interfaces.
+React: JavaScript library for building user interfaces.
+Tailwind CSS: Utility-first CSS framework for rapid UI development.
+
+
