@@ -19,7 +19,7 @@ Click "Get Weather" to view the current weather and forecast information for the
 Switch between dark mode and light mode using the toggle button.
 View weather details including temperature, humidity, description, and relevant weather emojis.
 
-
+Running Locally
 #Clone the repository:
 git clone https://github.com/Chiamaka-Uchenna/skycast.git
 
